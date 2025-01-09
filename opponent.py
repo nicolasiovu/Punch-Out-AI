@@ -5,7 +5,7 @@ from boxer import Boxer
 class Opponent(Boxer):
     def __init__(self):
         super().__init__()
-        self.x, self.y = 650, 50
+        self.x, self.y = 650, 150
         self.set_sprite()
 
     def set_sprite(self):

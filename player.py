@@ -5,7 +5,7 @@ from boxer import Boxer
 class Player(Boxer):
     def __init__(self):
         super().__init__()
-        self.x, self.y = 525, 300
+        self.x, self.y = 450, 328
         self.set_sprite()
 
     def set_sprite(self):
