@@ -9,10 +9,7 @@ class Player(Boxer):
         self.set_sprite()
 
     def set_sprite(self):
-        if self.action == "idle":
-            self.sprite = config.player_idle
-        else:
-            pass
+        self.sprite = config.player_sprites.get(self.action)
 
     def render(self):
         config.window.blit(self.sprite, (self.x, self.y))
