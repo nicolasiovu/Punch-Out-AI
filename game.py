@@ -1,3 +1,4 @@
+import time
 import pygame
 import pygame.freetype
 from sys import exit
@@ -12,7 +13,8 @@ fighters = Fighters()
 scoreboard = Scoreboard(fighters)
 
 
-def main():
+def run():
+    last_time = time.time()
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -40,8 +42,49 @@ def main():
         fighters.update_fighters()
         scoreboard.render()
 
+        current_time = time.time()
+        if current_time - last_time >= 1:
+            scoreboard.tick_timer()
+            if scoreboard.timer == 0:
+                return
+            last_time = current_time
+
         clock.tick(60)
         pygame.display.flip()
 
 
-main()
+def between_round():
+    countdown = 10
+    last_time = time.time()
+    BIG_FONT = pygame.font.SysFont("impact", 72)
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                exit()
+
+        config.window.fill((0, 0, 0))
+        config.window.blit(config.background, (0, 0))
+
+        config.window.blit(config.next_round, (294, 340))
+        start_time = BIG_FONT.render(str(countdown), False, (74, 107, 189))
+        config.window.blit(start_time, (996, 334))
+
+        current_time = time.time()
+        if current_time - last_time >= 1:
+            countdown -= 1
+            last_time = current_time
+            if countdown == 0:
+                scoreboard.next_round()
+                return
+
+        clock.tick(60)
+        pygame.display.flip()
+
+
+while True:
+    run()
+    if scoreboard.round < 4:
+        between_round()
+    else:
+        break

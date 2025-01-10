@@ -40,5 +40,14 @@ player_sprites = \
      "punched-right": pygame.image.load("assets/player_punched_right.png")
      }
 
+info_display = pygame.image.load("assets/round_time_bar.png")
+
+round_numbers = {1: pygame.image.load("assets/rd1.png"),
+                 2: pygame.image.load("assets/rd2.png"),
+                 3: pygame.image.load("assets/rd3.png"),
+                 4: pygame.image.load("assets/rd4.png")}
+
 player_score = pygame.image.load("assets/player_score.png")
 opponent_score = pygame.image.load("assets/opponent_score.png")
+
+next_round = pygame.image.load("assets/next_round.png")
