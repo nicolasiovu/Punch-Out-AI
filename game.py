@@ -11,6 +11,7 @@ config.init_font()
 clock = pygame.time.Clock()
 fighters = Fighters()
 scoreboard = Scoreboard(fighters)
+fighters.set_scoreboard(scoreboard)
 
 
 def run():
@@ -40,6 +41,7 @@ def run():
 
         config.window.blit(config.background, (0, 0))
         fighters.update_fighters()
+        fighters.record_ai_experience()
         scoreboard.render()
 
         current_time = time.time()
@@ -54,6 +56,8 @@ def run():
 
 
 def between_round():
+    trained = False
+
     countdown = 10
     last_time = time.time()
     BIG_FONT = pygame.font.SysFont("impact", 72)
@@ -69,6 +73,10 @@ def between_round():
         config.window.blit(config.next_round, (294, 340))
         start_time = BIG_FONT.render(str(countdown), False, (74, 107, 189))
         config.window.blit(start_time, (996, 334))
+
+        if not trained:
+            fighters.train_ai()
+            trained = True
 
         current_time = time.time()
         if current_time - last_time >= 1:

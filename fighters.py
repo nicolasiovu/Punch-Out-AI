@@ -4,6 +4,7 @@ from opponent import Opponent
 from player import Player
 from boxerai import BoxerAI
 from boxerai import State
+from actions import Actions
 
 
 class Fighters:
@@ -11,6 +12,10 @@ class Fighters:
         self.player = Player()
         self.opponent = Opponent()
         self.boxer_ai = BoxerAI()
+        self.scoreboard = None
+
+    def set_scoreboard(self, scoreboard):
+        self.scoreboard = scoreboard
 
     def update_fighters(self):
         self.opponent.update_action(self.player)
@@ -45,3 +50,35 @@ class Fighters:
     def set_opponent_move(self):
         if self.opponent.delay != 0:
             return
+        state = State(Actions.str_to_action.get(self.player.action),
+                      Actions.str_to_action.get(self.opponent.action),
+                      self.player.delay,
+                      self.opponent.delay,
+                      self.opponent.punched_count - self.player.punched_count
+                      )
+        action = self.boxer_ai.get_action(state)
+        move = Actions.action_to_str.get(action)
+        if move == "block":
+            self.opponent.block()
+        elif move == "dodge-left":
+            self.opponent.dodge_left()
+        elif move == "dodge-right":
+            self.opponent.dodge_right()
+        elif move == "punch-left":
+            self.opponent.prep_punch_left()
+        elif move == "punch-right":
+            self.opponent.prep_punch_right()
+        elif move == "idle":
+            self.opponent.idle()
+
+    def record_ai_experience(self):
+        state = State(Actions.str_to_action.get(self.player.action),
+                      Actions.str_to_action.get(self.opponent.action),
+                      self.player.delay,
+                      self.opponent.delay,
+                      self.player.punched_count - self.opponent.punched_count
+                      )
+        self.boxer_ai.record_experience(state)
+
+    def train_ai(self):
+        self.boxer_ai.train()

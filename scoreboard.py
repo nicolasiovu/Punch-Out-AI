@@ -9,13 +9,13 @@ class Scoreboard:
         self.info_x, self.info_y = 540, 0
         self.round = 1
         self.round_scoring = [(0, 0), (0, 0), (0, 0), (0, 0)]
-        self.timer = 180
+        self.timer = 60
 
     def tick_timer(self):
         self.timer -= 1
 
     def next_round(self):
-        self.timer = 180
+        self.timer = 60
         self.round_scoring[self.round - 1] = \
             (self.fighters.get_player_score(), self.fighters.get_opponent_score())
         self.round += 1
