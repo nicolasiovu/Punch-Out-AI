@@ -3,13 +3,14 @@ from random import randint
 from opponent import Opponent
 from player import Player
 from boxerai import BoxerAI
+from boxerai import State
 
 
 class Fighters:
     def __init__(self):
         self.player = Player()
         self.opponent = Opponent()
-        self.ai_model = BoxerAI()
+        self.boxer_ai = BoxerAI()
 
     def update_fighters(self):
         self.opponent.update_action(self.player)
@@ -42,12 +43,5 @@ class Fighters:
             self.player.idle()
 
     def set_opponent_move(self):
-        state = self.encode_game_state()
-
-        with torch.no_grad():
-            action_prob = self.ai_model(state)
-
-    def encode_game_state(self):
-        player_movement = int(self.player.delay == 0)
-        opponent_movement = int(self.opponent.delay == 0)
-
+        if self.opponent.delay != 0:
+            return

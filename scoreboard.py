@@ -9,7 +9,7 @@ class Scoreboard:
         self.info_x, self.info_y = 540, 0
         self.round = 1
         self.round_scoring = [(0, 0), (0, 0), (0, 0), (0, 0)]
-        self.timer = 30
+        self.timer = 180
 
     def tick_timer(self):
         self.timer -= 1
