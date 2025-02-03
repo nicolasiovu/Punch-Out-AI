@@ -11,7 +11,11 @@ You can dodge in the opposite direction of the oncoming punch to prepare yoursel
 Controls:
 
 A: Dodge left
+
 D: Dodge right
+
 Q: Punch left
+
 E: Punch right
+
 Space: Block
